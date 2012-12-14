@@ -142,11 +142,19 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
         }
       }
 
+      var fadeOutAndDie = function(sprite) {
+        return function(){
+          sprite.addAnimation(new Animation('fadeOut'));
+          self.spriteManager.removeSpriteOnAnimationsFinished(sprite);
+        }
+      }
+
       for (var index in sprites) {
         sprite = sprites[index];
 
         self.spriteManager.removeSpriteFromTag(sprite, 'message');
         setTimeout(moveRandomly(sprite), 1000);
+        setTimeout(fadeOutAndDie(sprite), 5000 + rand(12000));
       }
     });
   }
