@@ -54,8 +54,8 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
 
     this.createSpritesForCoords(slide.wordPoints);
 
-    this.clickHandler = clickHandlers.formLetter;
-    showPrompt(config.translations.promptStart);
+    clickHandlers.formLetter.apply(this);
+
     if (this.timer === null) this.tick();
   }
 

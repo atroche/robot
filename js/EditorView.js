@@ -15,34 +15,26 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
     var self = this;
     this.previousX = null;
     this.previousY = null;
+
     $('#editorToolbar').fadeIn();
     $('#editorToolbar').fadeIn();
     $('#frameText').keyup(function(e) {self.handleKeyup.call(self, e);});
     $('#previewButton').click(function(e) {self.runPreview.call(self);e.preventDefault();});
 
-    $('#previousSlideButton').click(function(e) {self.previousSlide.call(self);e.preventDefault();});
-
     $('#stopPlaybackButton').click(function(e) {self.stopPreview.call(self);e.preventDefault();});
 
     $(document).keydown(function(e) {$('#frameText').focus()});
     this.currentSlide = 0;
-    this.slides = [];
-    this.addSlide();
+    this.slides = [{
+      text: [],
+      wordPoints: []
+    }];
 
     this.originX = Math.round(canvas.width / 2);
     this.originY = Math.round(canvas.height / 2);
     this.playbackView = null;
 
     $(canvas).addClass('editing');
-  }
-
-  EditorView.prototype.addSlide = function() {
-    var slide = {
-      text: [],
-      wordPoints: []
-    }
-    this.currentSlide = this.slides.push(slide) - 1;
-    this.drawCurrentSlide();
   }
 
   EditorView.prototype.drawCurrentSlide = function() {
