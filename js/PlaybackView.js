@@ -117,7 +117,16 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
         }
       }(sprite));
     }
+
     animationWatcher.signals.finished.add(function() {
+      for (var index in sprites) {
+        sprite = sprites[index];
+
+        self.spriteManager.removeSpriteFromTag(sprite, 'message');
+
+        sprite.addAnimation(new Animation('moveRandomlyX', {start: sprite.x, max: self.originX, period: rand(200) + 100} ));
+        sprite.addAnimation(new Animation('moveRandomlyY', {start: sprite.y, max: self.originY, period: rand(200) + 100} ));
+      }
     });
   }
 

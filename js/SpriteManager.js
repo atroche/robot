@@ -7,18 +7,18 @@ define(function() {
     this.idCounter = 0;
     this.tags = {};
   }
-  
+
   SpriteManager.prototype.setOrigin = function(x, y) {
     this.originX = x;
     this.originY = y;
   }
-  
+
   SpriteManager.prototype.addSprite = function (sprite) {
     this.sprites[this.idCounter] = sprite;
     sprite.id = this.idCounter;
     this.idCounter++;
   }
-  
+
   // from:
   // http://ejohn.org/blog/javascript-array-remove/
   SpriteManager.prototype.removeSprite = function (sprite) {
@@ -27,22 +27,22 @@ define(function() {
       delete(this.tags[index][sprite.id]);
     }
   }
-  
+
   SpriteManager.prototype.addSpriteToTag = function (sprite, tag) {
     if (!this.tags[tag]) {
       this.tags[tag] = {};
     }
     this.tags[tag][sprite.id] = sprite;
   }
-  
+
   SpriteManager.prototype.getSpritesByTag = function (tag) {
     return this.tags[tag];
   }
-  
+
   SpriteManager.prototype.removeSpriteFromTag = function (sprite, tag) {
     delete(this.tags[tag][sprite.id]);
   }
-  
+
   SpriteManager.prototype.updateAndRender = function(ctx) {
     var numSpritesToDelete = 0;
     if (numSpritesToDelete = this.spritesToDelete.length) {
@@ -51,15 +51,15 @@ define(function() {
       }
       this.spritesToDelete = [];
     }
-    
+
     var numSprites = this.sprites.length;
- 
+
     for (var index in this.sprites) {
       this.sprites[index].render(ctx, this.originX, this.originY);
       this.sprites[index].tick();
     }
   }
-  
+
   SpriteManager.prototype.removeSpriteOnAnimationsFinished = function (sprite) {
     var self = this;
     sprite.signals.animationsFinished.addOnce(function(s) {
@@ -68,7 +68,7 @@ define(function() {
       }
     }(sprite));
   }
-  
+
   function inArray(needle, haystack) {
     var length = haystack.length;
     for(var i = 0; i < length; i++) {
@@ -76,7 +76,7 @@ define(function() {
     }
     return false;
 }
-  
+
   return SpriteManager;
-  
+
 });
