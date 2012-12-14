@@ -110,7 +110,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
           s.addAnimation(new Animation('moveTo', {
             x: s.data.targetX,
             y: s.data.targetY,
-            period: 10
+            period: 35
           }, animationWatcher));
           s.opacity = 1;
 
@@ -119,13 +119,19 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
     }
 
     animationWatcher.signals.finished.add(function() {
+
+      var moveRandomly = function(sprite) {
+        return function(){
+          sprite.addAnimation(new Animation('moveRandomlyX', {start: sprite.x, max: self.originX, period: rand(200) + 100} ));
+          sprite.addAnimation(new Animation('moveRandomlyY', {start: sprite.y, max: self.originY, period: rand(200) + 100} ));
+        }
+      }
+
       for (var index in sprites) {
         sprite = sprites[index];
 
         self.spriteManager.removeSpriteFromTag(sprite, 'message');
-
-        sprite.addAnimation(new Animation('moveRandomlyX', {start: sprite.x, max: self.originX, period: rand(200) + 100} ));
-        sprite.addAnimation(new Animation('moveRandomlyY', {start: sprite.y, max: self.originY, period: rand(200) + 100} ));
+        setTimeout(moveRandomly(sprite), 1000);
       }
     });
   }
