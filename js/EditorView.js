@@ -70,10 +70,6 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
   }
 
   EditorView.prototype.runPreview = function() {
-      if (!this.slidesHaveContent()) {
-        return alert ('Nothing to preview yet. Please enter some text or draw with the mouse.');
-      }
-
       var parsingComplete = fontparser.start(this.slides);
 
       var self = this;
@@ -89,15 +85,6 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
         playbackView.play(self.slides);
         self.playbackView = playbackView;
       });
-  }
-
-  EditorView.prototype.slidesHaveContent = function() {
-    for (var index in this.slides) {
-      if (this.slides[index].text.length > 0) {
-        return true;
-      }
-    }
-    return false;
   }
 
   EditorView.prototype.removeEmptySlides = function() {
