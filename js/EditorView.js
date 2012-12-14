@@ -89,11 +89,6 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
         playbackView.play(self.slides);
         self.playbackView = playbackView;
       });
-
-      parsingComplete.progress(function(status) {
-//        showPrompt('Processing ' + status[0] + ' / ' + status[1]);
-        updateProgress(status[0], status[1]);
-      });
   }
 
   EditorView.prototype.slidesHaveContent = function() {
@@ -138,13 +133,6 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
     $(canvas).addClass('editing');
 
     this.drawCurrentSlide();
-  }
-
-  function updateProgress(current, total) {
-    var ctx = document.getElementById('progressbar').getContext('2d');
-    var size = rand(5) + 10;
-    var sprite = new Sprite(Math.round((current / total) * 200), 7, rand(5) + 10);
-    sprite.render(ctx, 0, 0);
   }
 
   function rand(max) {
