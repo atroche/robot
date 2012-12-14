@@ -69,9 +69,9 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
       sprite.data.targetY = item[1];
       sprite.data.targetSize = item[2];
       sprite.opacity = 0;
-      sprite.addAnimation(new Animation('moveRandomlyX', {start: sprite.x, max: this.originX, period: rand(200) + 100} ));
-      sprite.addAnimation(new Animation('moveRandomlyY', {start: sprite.y, max: this.originY, period: rand(200) + 100} ));
-      sprite.addAnimation(new Animation('fadeIn', {max: 0.5}));
+      // sprite.addAnimation(new Animation('moveRandomlyX', {start: sprite.x, max: this.originX, period: rand(200) + 100} ));
+      // sprite.addAnimation(new Animation('moveRandomlyY', {start: sprite.y, max: this.originY, period: rand(200) + 100} ));
+      sprite.addAnimation(new Animation('fadeIn', {max: 0.5, period: 1}));
       this.spriteManager.addSprite(sprite);
       this.spriteManager.addSpriteToTag(sprite, 'message');
     }
@@ -110,7 +110,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
           s.addAnimation(new Animation('moveTo', {
             x: s.data.targetX,
             y: s.data.targetY,
-            period: rand(30) + 50
+            period: 10
           }, animationWatcher));
           s.opacity = 1;
 
