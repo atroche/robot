@@ -1,4 +1,4 @@
-require(['jquery', 'utils', 'fontparser'], function($, utils, fontparser) {
+require(['jquery', 'utils', 'fontparser', 'socket.io'], function($, utils, fontparser, io) {
   $(document).ready(function() {
 
     $('#shareUrl').val(window.location);
@@ -15,8 +15,17 @@ require(['jquery', 'utils', 'fontparser'], function($, utils, fontparser) {
 
       Sprite.prototype.loadImages().then(function() {
 
-        var playbackView = new PlaybackView('preview');
-        playbackView.play('hello');
+        var playbackView = new PlaybackView();
+
+        var socket = io.connect('http://localhost:8080');
+
+        socket.emit('identify', {
+          role: "terminal"
+        });
+
+        socket.on('msg', function(data) {
+          playbackView.play(data.msg);
+        });
 
       });
     });

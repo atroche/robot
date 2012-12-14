@@ -5,7 +5,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
   canvas.width = $(window).width();
   canvas.height = $(window).height();
 
-  var PlaybackView = function(mode) {
+  var PlaybackView = function() {
     this.clickHandler = null;
     var self = this;
     this.spriteManager = new SpriteManager();
@@ -14,7 +14,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
     this.spriteManager.setOrigin(this.originX, this.originY);
     this.currentSlide = 0;
     this.timer = null;
-    this.mode = mode;
+
     this.oldMouseX = null;
     this.oldMouseY = null;
 
@@ -30,10 +30,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
       self.originY = Math.round(canvas.height / 2);
       self.spriteManager.setOrigin(self.originX, self.originY);
     });
-
-    if (mode != 'preview') {
-      $('.playbackOptions').show();
-    }
   }
 
   PlaybackView.prototype.stop = function() {
