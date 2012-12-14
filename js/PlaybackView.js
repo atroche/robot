@@ -1,4 +1,4 @@
-define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], function($, Sprite, Animation, SpriteManager, AnimationWatcher) {
+define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'fontparser'], function($, Sprite, Animation, SpriteManager, AnimationWatcher, fontparser) {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
 
@@ -18,7 +18,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
     this.oldMouseX = null;
     this.oldMouseY = null;
 
-    $('canvas,#clickPrompt').click(function(e) {
+    $('canvas').click(function(e) {
       self.handleClick(e);
       e.preventDefault();
     });
@@ -42,21 +42,26 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
     $(canvas).removeClass('playback');
     $(window).unbind('resize');
     clearTimeout(this.timer);
-    hidePrompt();
+
   }
 
-  PlaybackView.prototype.play = function(slides) {
-    this.currentSlide = 0;
-    this.slides = slides;
-    var slide = slides[this.currentSlide];
-
+  PlaybackView.prototype.play = function(text) {
     $(canvas).addClass('playback');
 
-    this.createSpritesForCoords(slide.wordPoints);
+    var slides = [{
+      text: text,
+      wordPoints: []
+    }];
 
-    clickHandlers.formLetter.apply(this);
+    // Adds Wordpoints to slides
+    var parsingComplete = fontparser.start(slides);
 
-    if (this.timer === null) this.tick();
+    var self = this;
+    parsingComplete.then(function() {
+      self.createSpritesForCoords(slides[0].wordPoints);
+      clickHandlers.formLetter.apply(self);
+      if (self.timer === null) self.tick();
+    });
   }
 
   PlaybackView.prototype.createSpritesForCoords = function(coords) {
@@ -91,7 +96,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
     if (this.clickHandler) {
       var handler = this.clickHandler;
       this.clickHandler = null;
-      hidePrompt();
+
       handler.call(this, e);
     }
   }
@@ -114,7 +119,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
         this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
       }
     }
-    showPrompt();
   }
 
   var clickHandlers = {};
@@ -161,17 +165,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
 
   function rand(max) {
     return Math.floor(Math.random() * max ) + 1;
-  }
-
-  function showPrompt(text) {
-    var $clickPrompt = $('#clickPrompt');
-    text = text || config.translations.promptClick;
-    $clickPrompt.text(text).addClass('show');
-    $clickPrompt.css('left', Math.round($(window).width() / 2) - Math.round($clickPrompt.width() / 2));
-  }
-
-  function hidePrompt() {
-    $('#clickPrompt').removeClass('show');
   }
 
 

@@ -58,22 +58,6 @@ a.button:hover { color: #fff; border: 1px solid #888; background: #777; }
   div.ad.ad-wide { display: block; position: absolute; left: 50%; margin-left: -234px;}
 }
 
-/* CSS3 animations */
-#clickPrompt.show, #share.show {
-  display: block;
-  transform-origin: 50% 0;
-  animation: rotateY 0.7s;
-
-  -webkit-transform-origin: 50% 0;
-  -webkit-animation: rotateY 0.7s;
-
-  -moz-transform-origin: 50% 0;
-  -moz-animation: rotateY 0.7s;
-
-  -ms-transform-origin: 50% 0;
-  -ms-animation: rotateY 0.7s;
-}
-
 
 @keyframes rotateY
 {

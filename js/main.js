@@ -15,20 +15,8 @@ require(['jquery', 'utils', 'fontparser'], function($, utils, fontparser) {
 
       Sprite.prototype.loadImages().then(function() {
 
-        var path = window.location.pathname.substr(1), view = null;
-
-        var slides = [{
-          text: 'asdf',
-          wordPoints: []
-        }];
-
-        // Adds Wordpoints to slides
-        var parsingComplete = fontparser.start(slides);
-
-        parsingComplete.then(function() {
-          var playbackView = new PlaybackView('preview');
-          playbackView.play(slides);
-        });
+        var playbackView = new PlaybackView('preview');
+        playbackView.play('hello');
 
       });
     });
