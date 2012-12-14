@@ -153,7 +153,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
         sprite = sprites[index];
 
         self.spriteManager.removeSpriteFromTag(sprite, 'message');
-        setTimeout(moveRandomly(sprite), 1000);
+        setTimeout(moveRandomly(sprite), 2500);
         setTimeout(fadeOutAndDie(sprite), 5000 + rand(12000));
       }
     });
