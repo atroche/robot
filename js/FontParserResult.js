@@ -10,10 +10,12 @@ define(['jquery'], function($) {
     this.promise = new $.Deferred();
     this.totalPasses = 0;
 
+    this.font = "250px 'Courier New'";
+
     // initalise temporary canvas to measure the text widths
     var tmpCanvas = document.createElement('canvas');
     var tmpCtx = tmpCanvas.getContext('2d');
-    tmpCtx.font = "250px 'Times New Roman'";
+    tmpCtx.font = this.font;
 
     var pass = {};
     var currentText = null;
@@ -29,7 +31,7 @@ define(['jquery'], function($) {
       currentText.height = this.height;
       currentTextCtx = currentText.getContext('2d');
       currentTextCtx.fillStyle = 'white';
-      currentTextCtx.font = "250px 'Times New Roman'";
+      currentTextCtx.font = this.font;
       currentTextCtx.fillText(currentSlide.text, 50, 200);
       currentSlide.wordPoints = [];
 
