@@ -1,4 +1,4 @@
-define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'fontparser'], function($, Sprite, Animation, SpriteManager, AnimationWatcher, fontparser) {
+define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'fontparser', 'speakClient'], function($, Sprite, Animation, SpriteManager, AnimationWatcher, fontparser, speakClient) {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
 
@@ -59,6 +59,8 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
   }
 
   PlaybackView.prototype.play = function(text) {
+    this.text = text;
+
     var slides = [{
       text: text,
       wordPoints: []
@@ -134,6 +136,10 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
     }
 
     animationWatcher.signals.finished.add(function() {
+
+      setTimeout(function(){
+        speak(self.text);
+      }, 500);
 
       var moveRandomly = function(sprite) {
         return function(){
