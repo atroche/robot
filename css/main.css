@@ -52,8 +52,6 @@ input { width: 150px; font-family: inherit; font-size: 16px; border: none; backg
 
 #text { display: none;}
 
-#editorToolbar #saveButton { float: right; background-color: #5a5; color: #fff; }
-
 a.button { color: #ccc; border: 1px solid #555; background: #555; padding: 3px 5px; text-shadow: 1px 1px #000; display: inline-block; margin-top: 1px; }
 a.button:hover { color: #fff; border: 1px solid #888; background: #777; }
 
@@ -63,16 +61,16 @@ a.button:hover { color: #fff; border: 1px solid #888; background: #777; }
 
 /* CSS3 animations */
 #clickPrompt.show, #share.show {
-  display: block;  
+  display: block;
   transform-origin: 50% 0;
   animation: rotateY 0.7s;
-  
+
   -webkit-transform-origin: 50% 0;
   -webkit-animation: rotateY 0.7s;
-  
+
   -moz-transform-origin: 50% 0;
   -moz-animation: rotateY 0.7s;
-  
+
   -ms-transform-origin: 50% 0;
   -ms-animation: rotateY 0.7s;
 }
