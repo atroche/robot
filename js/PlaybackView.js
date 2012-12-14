@@ -30,6 +30,23 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
       self.originY = Math.round(canvas.height / 2);
       self.spriteManager.setOrigin(self.originX, self.originY);
     });
+
+    $(canvas).addClass('playback');
+
+    this.createBGSprites();
+
+    this.tick();
+  }
+
+  PlaybackView.prototype.createBGSprites = function() {
+    for(var i=0;i<200;i++) {
+      sprite = new Sprite(rand(this.originX * 2) - this.originX, rand(this.originY * 2) - this.originY, 5 + rand(5));
+      sprite.opacity = 1;
+      sprite.addAnimation(new Animation('moveRandomlyX', {start: sprite.x, max: this.originX, period: rand(200) + 100} ));
+      sprite.addAnimation(new Animation('moveRandomlyY', {start: sprite.y, max: this.originY, period: rand(200) + 100} ));
+      this.spriteManager.addSprite(sprite);
+      this.spriteManager.addSpriteToTag(sprite, 'bg');
+    }
   }
 
   PlaybackView.prototype.stop = function() {
@@ -42,8 +59,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
   }
 
   PlaybackView.prototype.play = function(text) {
-    $(canvas).addClass('playback');
-
     var slides = [{
       text: text,
       wordPoints: []
