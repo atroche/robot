@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>lovely messages</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script src="js/require.js"></script>
+
+        <script type="text/javascript">
+          WebFontConfig = {
+            google: { families: [ 'Rouge Script::latin' ] },
+            active: function() { require(['main']); }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+      })(); </script>
+
+     <script type="text/javascript">
+      require.config({
+        baseUrl: "/js"
+      });
+
+      config = {
+          lang: "en",
+          translations: {
+              promptStart: "Click to start",
+              promptClick: "Click",
+              promptReplay: "Click to replay"
+          }
+      }
+    </script>
+
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+      <div id="title" class="overlay">
+        <h1>lovely messages</h1>
+      </div>
+
+    <canvas id="canvas"></canvas>
+    <div id="clickPrompt" class="overlay">Click</div>
+    <div id="editorToolbar" class="overlay">
+      <div class="editorControl">
+        <label for="frameText">Text</label><input type="text" id="frameText" />
+        <a class="button" id="previewButton" href="#">Preview</a>
+        <a class="button" id="addSlideButton" href="#">Add slide</a>
+        <a class="button" id="previousSlideButton" href="#">&lt;</a>
+        <span id="currentSlide">1</span>
+        <a class="button" id="nextSlideButton" href="#">&gt;</a>
+        <a class="button" id="saveButton" href="#">Save and share</a>
+      </div>
+      <div class="playbackControl">
+        <a class="button" id="stopPlaybackButton" href="#">Stop preview</a>
+      </div>
+    </div>
+
+    <div id="intro" class="overlay">
+      <h2>Welcome to <span class="lovely">lovelymessag.es</span>!</h2>
+      <p>Create and send animated lovely messages to your friends and family. Your Message get beautifully rendered with Javascript and HTML5 canvas magic.</p>
+    </div>
+
+    <div id="progress" class="overlay">Generating <span class="lovely">loveliness</span>...      <canvas width="200" height="16" id="progressbar"></canvas>
+    </div>
+
+  </body>
+</html>

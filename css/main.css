@@ -1,0 +1,103 @@
+body { background-color: #000; font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; color: #ccc; width: 100%; margin: 0; padding: 0; font-size: 18px; text-shadow: 2px 2px #000; overflow: hidden; }
+h1 { position: absolute; left: 10px; top: 0px; font-family: 'Rouge Script', cursive; color: #ccc; font-size: 36px; display: none; font-weight: normal; margin: 0;}
+h2 { margin: 0; font-weight: normal; font-size: 40px; color: #eee; text-shadow: 2px 2px #000; }
+h3 { margin: 5px 0 10px 0; font-weight: normal; }
+p { margin-top: 10px; }
+p.note { font-size: 14px; text-shadow: none; font-style: italic; }
+
+#title { position: absolute; left: 0px; top: 0px; width: 100%; z-index: 10; padding: 0; height: 48px;}
+#title div.playbackOptions { position: absolute; right: 8px; top: 8px; display:none;  }
+
+a { color: #cc0; text-decoration: none; padding: 2px;}
+a:hover { color: #000; background-color: #cc0; text-shadow: none; }
+a img { border: none; }
+
+.wf-rougescript-n4-active h1 { display: block; }
+.lovely {font-family: 'Rouge Script', cursive; font-size: 1.3em;}
+.overlay { background-color:rgba(255,255,255,0.2); padding: 20px; }
+#canvas { position: absolute; left: 0px; top: 0px;}
+#canvas.editing { cursor: crosshair; }
+/*#canvas.playback { cursor: none }*/
+#clickPrompt { width: 130px; position: absolute; color: #bbb; text-align: center; display: none; top:48px; padding: 10px;}
+#editorToolbar{ position: absolute; width: 100%; bottom: 0px; left: 0px; margin: 0; display: none; font-size: 16px; padding: 0;}
+
+#playbackToolbar  { position: absolute; width: 100%; bottom: 0px; left: 0px; margin: 0; font-size: 16px; padding: 0; height: 60px;}
+div.ad { padding: 0; float: left; display: none; height: 60px;}
+#playbackToolbar div.lantern { float: right; padding: 22px 16px 0 0 ;}
+
+#previewButton { margin-right: 32px; }
+#nextSlideButton { margin-right: 32px; }
+
+
+.editorControl { padding: 10px; }
+.editorControl label { margin-right: 10px; }
+input { width: 150px; font-family: inherit; font-size: 16px; border: none; background: #555; color: #fff; padding: 5px; border: 2px solid #222; }
+.playbackControl { display: none; padding: 10px; }
+
+#progress { background: #333; width: 450px; color: #bbb; padding: 10px; text-align: center; display: none; position: absolute; font-size: 40px; }
+#progressbar { border: 2px solid #777; margin-top: 10px; }
+
+#share { width: 450px; position: absolute; padding: 20px; display: none;}
+
+#share li { list-style: none; margin-bottom: 10px; height: 30px; overflow:hidden;}
+#share ul { margin: 0; padding: 0;}
+#shareUrl { width: 100%; }
+#share p.create { text-align: right;}
+
+#share li#shareWeibo { height: 100px; }
+
+#intro { position: absolute; width: 450px; display: none; }
+
+#sorry { position: absolute; width: 600px; left: 50%; margin-left: -300px; top: 50%; margin-top: -200px;}
+
+#text { display: none;}
+
+#editorToolbar #saveButton { float: right; background-color: #5a5; color: #fff; }
+
+a.button { color: #ccc; border: 1px solid #555; background: #555; padding: 3px 5px; text-shadow: 1px 1px #000; display: inline-block; margin-top: 1px; }
+a.button:hover { color: #fff; border: 1px solid #888; background: #777; }
+
+@media only screen and (min-width: 780px) {
+  div.ad.ad-wide { display: block; position: absolute; left: 50%; margin-left: -234px;}
+}
+
+/* CSS3 animations */
+#clickPrompt.show, #share.show {
+  display: block;  
+  transform-origin: 50% 0;
+  animation: rotateY 0.7s;
+  
+  -webkit-transform-origin: 50% 0;
+  -webkit-animation: rotateY 0.7s;
+  
+  -moz-transform-origin: 50% 0;
+  -moz-animation: rotateY 0.7s;
+  
+  -ms-transform-origin: 50% 0;
+  -ms-animation: rotateY 0.7s;
+}
+
+
+@keyframes rotateY
+{
+  0%   {transform: scaleY(0); opacity: 0.5}
+  100% {transform: scaleY(1); opacity: 1}
+}
+
+@-webkit-keyframes rotateY
+{
+  0%   {-webkit-transform: scaleY(0); opacity: 0.5}
+  100% {-webkit-transform: scaleY(1); opacity: 1}
+}
+
+@-moz-keyframes rotateY
+{
+  0%   {-moz-transform: scaleY(0); opacity: 0.5}
+  100% {-moz-transform: scaleY(1); opacity: 1}
+}
+
+@-ms-keyframes rotateY
+{
+  0%   {-o-transform: scaleY(0); opacity: 0.5}
+  100% {-o-transform: scaleY(1); opacity: 1}
+}
