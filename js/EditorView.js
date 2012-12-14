@@ -142,20 +142,6 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
   }
 
 
-  EditorView.prototype.nextSlide = function() {
-    if (this.currentSlide < this.slides.length - 1) {
-      this.currentSlide ++;
-      this.drawCurrentSlide();
-    }
-  }
-
-    EditorView.prototype.previousSlide = function() {
-    if (this.currentSlide > 0) {
-      this.currentSlide --;
-      this.drawCurrentSlide();
-    }
-  }
-
   EditorView.prototype.updateShareLinks = function(url) {
     $('#shareUrl').val(url);
   }

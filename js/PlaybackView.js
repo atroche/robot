@@ -80,89 +80,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
     }
   }
 
-  PlaybackView.prototype.nextSlide = function() {
-    this.currentSlide++;
-    var self = this;
-    var animationWatcher = null;
-    var index = 0;
-
-    if (this.currentSlide == this.slides.length) {
-      // it's all over
-      var sprites = this.spriteManager.getSpritesByTag('message');
-      var animationWatcher = new AnimationWatcher();
-      for (index in sprites) {
-        sprite = sprites[index];
-        sprite.clearAnimations();
-        sprite.addAnimation(new Animation('explode', {}, animationWatcher));
-        this.spriteManager.removeSpriteFromTag(sprite, 'inPosition');
-        this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
-      }
-
-      animationWatcher.signals.finished.add(function() {
-        self.clickHandler = clickHandlers.replay;
-        showPrompt(config.translations.promptReplay);
-      });
-
-      if (this.mode !== 'preview') {
-        showShare();
-      }
-
-     return;
-    }
-
-    var slide = this.slides[this.currentSlide];
-    var sprite = {};
-
-    animationWatcher = new AnimationWatcher;
-
-    var spritesToChangeObj = this.spriteManager.getSpritesByTag('message');
-    var spritesToChange = [];
-    for (index in spritesToChangeObj) {
-      spritesToChange.push(spritesToChangeObj[index]);
-    }
-
-    this.createOrMoveSprites(spritesToChange, slide.wordPoints, animationWatcher);
-
-    animationWatcher.signals.finished.add(function() {
-      self.slideFinished.call(self);
-    });
-
-    // any leftover sprites need to be destroyed
-    for (index = 0; index < spritesToChange.length; index++) {
-      sprite = spritesToChange[index];
-      sprite.clearAnimations();
-      sprite.addAnimation(new Animation('explode'));
-      this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
-      this.spriteManager.removeSpriteFromTag(sprite, 'inPosition');
-      this.spriteManager.removeSpriteFromTag(sprite, 'message');
-    }
-  }
-
-  PlaybackView.prototype.createOrMoveSprites = function(spritesToChange, coords, animationWatcher) {
-    var numPoints = coords.length, item = [], sprite = {};
-    for (var index = 0; index < numPoints; index ++ ) {
-      item = coords[index];
-      sprite = spritesToChange.shift();
-      if (sprite === undefined) {
-        sprite = new Sprite(item[0] + rand(200) - 100, item[1] + rand(200) - 100, item[2]);
-        this.spriteManager.addSprite(sprite);
-        sprite.opacity = 0;
-        sprite.size = item[2];
-        sprite.addAnimation(new Animation('fadeIn', {max: 1, period: 30}));
-      }
-      else {
-        sprite.clearAnimations();
-      }
-      sprite.data.targetX = item[0];
-      sprite.data.targetY = item[1];
-      sprite.data.targetSize = item[2];
-      sprite.size = item[2];
-      sprite.addAnimation(new Animation('explodeTo', {x1: sprite.x + rand(200) - 100, y1: sprite.y + rand(200) -100, period: 30, x2: sprite.data.targetX, y2: sprite.data.targetY}, animationWatcher));
-      this.spriteManager.addSpriteToTag(sprite, 'message');
-      this.spriteManager.removeSpriteFromTag(sprite, 'inPosition');
-    }
-  }
-
   PlaybackView.prototype.tick = function() {
     var self = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -247,7 +164,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
 
   PlaybackView.prototype.slideFinished = function() {
     var self = this, sprite = {};
-    this.clickHandler = clickHandlers.nextSlide;
+
     var sprites = this.spriteManager.getSpritesByTag('message');
     for (var index in sprites) {
       sprite = sprites[index];
@@ -300,10 +217,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
       sprite.addAnimation(new Animation('explode'));
       this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
     }
-  }
-
-  clickHandlers.nextSlide = function() {
-    this.nextSlide();
   }
 
   clickHandlers.replay = function() {
