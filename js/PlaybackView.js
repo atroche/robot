@@ -101,26 +101,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
     }
   }
 
-  PlaybackView.prototype.slideFinished = function() {
-    var self = this, sprite = {};
-
-    var sprites = this.spriteManager.getSpritesByTag('message');
-    for (var index in sprites) {
-      sprite = sprites[index];
-      this.spriteManager.addSpriteToTag(sprite, 'inPosition');
-      sprite.addAnimation(new Animation('flash', {
-        target: sprite.data.targetSize
-        }));
-      if (index % 3 == 0) {
-        sprite = new Sprite(sprites[index].x, sprites[index].y, rand(15) );
-        sprite.opacity = 1;
-        sprite.addAnimation(new Animation('explode'));
-        this.spriteManager.addSprite(sprite);
-        this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
-      }
-    }
-  }
-
   var clickHandlers = {};
   clickHandlers.formLetter = function() {
     var self = this;
@@ -142,19 +122,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
       }(sprite));
     }
     animationWatcher.signals.finished.add(function() {
-      self.slideFinished.call(self);
     });
-  }
-
-  clickHandlers.explode = function() {
-    var sprite = null;
-    var self = this;
-    var sprites = this.spriteManager.getSpritesByTag('message');
-    for (var index in sprites) {
-      sprite = sprites[index];
-      sprite.addAnimation(new Animation('explode'));
-      this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
-    }
   }
 
   clickHandlers.replay = function() {
