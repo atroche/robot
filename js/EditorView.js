@@ -137,13 +137,7 @@ define(['jquery', 'PlaybackView', 'fontparser', 'Sprite'], function($, PlaybackV
     var self = this;
     $(canvas).addClass('editing');
 
-    $(canvas).mousemove(function(e) {self.handleMove.call(self, e);});
     this.drawCurrentSlide();
-  }
-
-
-  EditorView.prototype.updateShareLinks = function(url) {
-    $('#shareUrl').val(url);
   }
 
   function updateProgress(current, total) {

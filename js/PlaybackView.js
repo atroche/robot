@@ -23,10 +23,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
       e.preventDefault();
     });
 
-    $('canvas').mousemove(function(e) {
-      self.handleMove(e);
-    });
-
     $(window).resize(function(e) {
       canvas.width = $(window).width();
       canvas.height = $(window).height();
@@ -92,74 +88,12 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
   PlaybackView.prototype.handleClick = function(e) {
     var self=this, sprite = {}, index = 0;
 
-    hideShare();
-
     if (this.clickHandler) {
       var handler = this.clickHandler;
       this.clickHandler = null;
       hidePrompt();
       handler.call(this, e);
     }
-
-    for (index = 0; index < 25; index++) {
-      sprite = new Sprite;
-      sprite.x = e.pageX - this.originX;
-      sprite.y = e.pageY - this.originY;
-      sprite.size = rand(15);
-      sprite.addAnimation(new Animation('explode'));
-      this.spriteManager.addSprite(sprite);
-      this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
-
-    }
-  }
-
-  PlaybackView.prototype.handleMove = function(e) {
-    var self=this;
-    var sprite = new Sprite(e.pageX - this.originX, e.pageY - this.originY, rand(15), ['mousemove']);
-    sprite.addAnimation(new Animation('fadeOut'));
-    this.spriteManager.addSprite(sprite);
-    this.spriteManager.removeSpriteOnAnimationsFinished(sprite);
-
-    var x = e.pageX - this.originX -64, y = e.pageY - this.originY - 64, x2 = x + 128, y2 = y + 128 ;
-
-    if (this.oldMouseX === null) {
-      this.oldMouseX = x;
-      this.oldMouseY = y;
-    }
-
-    var sprites = this.spriteManager.getSpritesByTag('inPosition');
-    var s = {};
-    var dx = 0,dy = 0, x1 = 0, y1 = 0, deltaX = x - this.oldMouseX, deltaY = y - this.oldMouseY, distance = 0, scale = 0, size = 0, averageV = 0;
-    for (var index in sprites) {
-      sprite = sprites[index];
-
-      distance = Math.sqrt(Math.pow(x - sprite.x + 64, 2) + Math.pow(y - sprite.y + 64, 2));
-      if (distance > 128) continue;
-      scale = 1 - (distance / 128);
-
-      if (sprite.x > x && sprite.y > y && sprite.x < x2 && sprite.y < y2) {
-        dx = sprite.data.targetX;
-        dy = sprite.data.targetY;
-
-        size = Math.ceil(15 * scale);
-        if (size < sprite.size) size = sprite.size;
-        averageV = Math.ceil(((deltaX + deltaY) / 2) * scale);
-        x1 = sprite.x + rand(averageV) - rand(averageV);
-        y1 = sprite.y + rand(averageV) - rand(averageV);
-        sprite.addAnimation(new Animation('explodeTo', {x1: x1, y1: y1, x2: dx, y2: dy, period: 10}));
-        sprite.addAnimation(new Animation('flash', {start: size, target: sprite.data.targetSize, period: 10}));
-
-        if (distance < 5) {
-          s = new Sprite(sprite.x, sprite.y, rand(10) + 5);
-          s.addAnimation(new Animation('explode'));
-          this.spriteManager.addSprite(s);
-          this.spriteManager.removeSpriteOnAnimationsFinished(s);
-        }
-
-      }
-    }
-    this.oldMouseX = x;
-    this.oldMouseY = y;
   }
 
   PlaybackView.prototype.slideFinished = function() {
@@ -221,17 +155,6 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher'], f
 
   clickHandlers.replay = function() {
     this.play(this.slides);
-  }
-
-  function showShare() {
-    var $share = $('#share');
-    $share.css('top', Math.round($(window).height() / 2) - Math.round($share.height() / 2));
-    $share.css('left', Math.round($(window).width() / 2) - Math.round($share.width() / 2));
-    $share.fadeIn('slow');
-  }
-
-  function hideShare() {
-    $('#share').fadeOut('slow');
   }
 
 
