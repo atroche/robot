@@ -10,7 +10,7 @@ define(['jquery'], function($) {
     this.promise = new $.Deferred();
     this.totalPasses = 0;
 
-    this.font = 60 + "px 'Georgia'";
+    this.font = 100 + "px 'Georgia'";
 
     // initalise temporary canvas to measure the text widths
     var tmpCanvas = document.createElement('canvas');

@@ -127,7 +127,7 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
           s.addAnimation(new Animation('moveTo', {
             x: s.data.targetX,
             y: s.data.targetY,
-            period: 35
+            period: 20
           }, animationWatcher));
           s.opacity = 1;
 
@@ -138,8 +138,10 @@ define(['jquery', 'Sprite', 'Animation', 'SpriteManager', 'AnimationWatcher', 'f
     animationWatcher.signals.finished.add(function() {
 
       setTimeout(function(){
-        speak(self.text);
-      }, 500);
+        speak(self.text, {
+          speed: 140
+        });
+      }, 200);
 
       var moveRandomly = function(sprite) {
         return function(){

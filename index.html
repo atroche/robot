@@ -7,22 +7,6 @@
     <script src="js/require.js"></script>
     <script src="js/speakClient.js"></script>
 
-
-        <script type="text/javascript">
-          WebFontConfig = {
-            google: { families: [ 'Rouge Script::latin' ] },
-            active: function() { require(['main']); }
-          };
-          (function() {
-            var wf = document.createElement('script');
-            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-      })(); </script>
-
      <script type="text/javascript">
       require.config({
         baseUrl: "/js"
@@ -36,6 +20,8 @@
               promptReplay: "Click to replay"
           }
       }
+
+      require(['main']);
     </script>
 
     <link rel="stylesheet" href="css/main.css" />

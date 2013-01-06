@@ -1,8 +1,8 @@
 define(['signals', 'jquery'], function(signals, $) {
-  
+
   var img = [];
   var scaledImg = [];
-  
+
   var Sprite = function(x, y, size) {
     this.x = x;
     this.y = y;
@@ -15,7 +15,7 @@ define(['signals', 'jquery'], function(signals, $) {
       animationsFinished: new signals.Signal()
     }
   }
-  
+
   Sprite.prototype.render = function(ctx, originX, originY) {
     ctx.save();
     var size = this.size;
@@ -26,21 +26,21 @@ define(['signals', 'jquery'], function(signals, $) {
     ctx.drawImage(this.img[size], originX + this.x - sizeOffset,  originY + this.y - sizeOffset);
     ctx.restore();
   }
-  
+
   Sprite.prototype.tick = function() {
     for (var index in this.animations) {
       this.animations[index].tick(this);
     }
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
-    
+
     if (rand(10) == 1) {
       this.img = scaledImg[rand(3)];
     }
-    
+
     return this;
   }
-  
+
   Sprite.prototype.addAnimation = function(animation) {
     var self = this;
     animation.signals.completed.add(function() {
@@ -51,48 +51,48 @@ define(['signals', 'jquery'], function(signals, $) {
     });
     this.animations[animation.type] = animation;
   }
-  
+
   Sprite.prototype.clearAnimations = function() {
     this.animations = [];
   }
-  
+
   Sprite.prototype.finishAnimations = function() {
     for (var index in this.animations) {
       this.animations[index].mode = this.animations[index].modes.stopping;
     }
     return this;
   }
-  
+
   function rand(max) {
     return Math.floor(Math.random() * (max + 1) );
   }
-  
+
   function isEmpty(map) {
     for(var key in map) {
       if (map.hasOwnProperty(key)) {
         return false;
       }
-      
+
     }
     return true;
   }
-  
-  
-  
+
+
+
   Sprite.prototype.loadImages = function() {
     var imagesLoaded = new $.Deferred();
     var loadedCount = 0;
-    
+
     img[0] = new Image();
-    img[0].src = 'images/red.png';
+    img[0].src = 'images/blue.png';
     img[1] = new Image();
-    img[1].src = 'images/green.png';
+    img[1].src = 'images/blue.png';
     img[2] = new Image();
     img[2].src = 'images/blue.png';
     img[3] = new Image();
-    img[3].src = 'images/yellow.png';
-   
-    
+    img[3].src = 'images/blue.png';
+
+
     for (var index in img) {
       img[index].addEventListener('load', function() {
         loadedCount++;
@@ -101,12 +101,12 @@ define(['signals', 'jquery'], function(signals, $) {
           imagesLoaded.resolve();
         }
       }, false);
-      
+
     }
-    
+
     return imagesLoaded;
   }
-  
+
   function prescaleImages() {
     var canvas = document.createElement('canvas');
     canvas.width = canvas.height = 32;
@@ -127,6 +127,6 @@ define(['signals', 'jquery'], function(signals, $) {
       }
     }
   }
-  
+
   return Sprite;
 });

@@ -17,7 +17,7 @@ require(['jquery', 'utils', 'fontparser', 'socket.io'], function($, utils, fontp
 
         var playbackView = new PlaybackView();
 
-        var socket = io.connect('http://localhost:8080');
+        var socket = io.connect(':8080');
 
         socket.emit('identify', {
           role: "terminal"
